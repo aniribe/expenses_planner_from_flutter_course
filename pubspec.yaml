@@ -19,6 +19,8 @@ dependencies:
   stacked: ^2.3.13
   stacked_services: ^0.9.3
 
+  intl: ^0.17.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
