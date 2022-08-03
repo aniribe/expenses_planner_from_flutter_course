@@ -1,6 +1,7 @@
-import 'package:expenses_planner/ui/views/home/components/user_transactions.dart';
+import 'package:expenses_planner/ui/views/home/components/new_transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'components/transaction_list.dart';
 import 'home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
@@ -11,7 +12,22 @@ class HomeView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, model, child) => Scaffold(
-        appBar: AppBar(title: const Text('Flutter App')),
+        appBar: AppBar(
+          title: const Text('Flutter App'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (_) {
+                      return NewTransaction(
+                          onAddPressed: model.addTransactionHandler);
+                    });
+              },
+            )
+          ],
+        ),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -20,12 +36,20 @@ class HomeView extends StatelessWidget {
                 elevation: 5,
                 child: Text('CHILD'),
               ),
-              UserTransactions(
-                transactions: model.transactions,
-                onAddPressed: model.addNewTransaction,
-              ),
+              TransactionList(transactions: model.transactions),
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            showModalBottomSheet(
+                context: context,
+                builder: (_) {
+                  return NewTransaction(
+                      onAddPressed: model.addTransactionHandler);
+                });
+          },
         ),
       ),
     );

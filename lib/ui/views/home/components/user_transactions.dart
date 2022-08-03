@@ -20,7 +20,6 @@ class UserTransactions extends StatelessWidget {
         NewTransaction(
           onAddPressed: onAddPressed,
         ),
-        TransactionList(transactions: transactions),
       ],
     );
   }

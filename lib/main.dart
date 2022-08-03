@@ -18,9 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Expenses planner',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.purple, accentColor: Colors.amber),
       navigatorKey: StackedService.navigatorKey,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       home: const HomeView(),

@@ -1,7 +1,11 @@
+import 'package:expenses_planner/config/app.locator.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import '../../../model/transaction.dart';
 
 class HomeViewModel extends BaseViewModel {
+  final _navigationService = locator<NavigationService>();
+
   String? titleInput;
   String? amountInput;
 
@@ -24,6 +28,11 @@ class HomeViewModel extends BaseViewModel {
 
   void setAmount(String value) => amountInput = value;
 
+  void addTransactionHandler(String title, String amount) {
+    addNewTransaction(title, amount);
+    redirectBack();
+  }
+
   void addNewTransaction(String title, String amount) {
     final newTransaction = Transaction(
         title: title,
@@ -34,4 +43,6 @@ class HomeViewModel extends BaseViewModel {
     transactions.add(newTransaction);
     notifyListeners();
   }
+
+  Future<void> redirectBack() async => _navigationService.popRepeated(1);
 }
