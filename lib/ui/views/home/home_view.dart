@@ -1,4 +1,5 @@
 import 'package:expenses_planner/ui/views/home/components/new_transaction.dart';
+import 'package:expenses_planner/ui/widgets/chart.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'components/transaction_list.dart';
@@ -32,10 +33,7 @@ class HomeView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Card(
-                elevation: 5,
-                child: Text('CHILD'),
-              ),
+              Chart(recentTransactions: model.recentTransaction),
               TransactionList(transactions: model.transactions),
             ],
           ),

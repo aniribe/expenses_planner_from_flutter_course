@@ -24,6 +24,13 @@ class HomeViewModel extends BaseViewModel {
     ),
   ];
 
+  List<Transaction> get recentTransaction {
+    return transactions.where((transaction) {
+      return transaction.date
+          .isAfter(DateTime.now().subtract(const Duration(days: 7)));
+    }).toList();
+  }
+
   void setTitle(String value) => titleInput = value;
 
   void setAmount(String value) => amountInput = value;
