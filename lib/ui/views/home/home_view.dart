@@ -23,7 +23,10 @@ class HomeView extends StatelessWidget {
                     context: context,
                     builder: (_) {
                       return NewTransaction(
-                          onAddPressed: model.addTransactionHandler);
+                        onAddPressed: model.addTransactionHandler,
+                        onDateChosen: model.onDateChosen,
+                        selectedDate: model.selectedDate,
+                      );
                     });
               },
             )
@@ -45,7 +48,10 @@ class HomeView extends StatelessWidget {
                 context: context,
                 builder: (_) {
                   return NewTransaction(
-                      onAddPressed: model.addTransactionHandler);
+                    onAddPressed: model.addTransactionHandler,
+                    onDateChosen: model.onDateChosen,
+                    selectedDate: model.selectedDate,
+                  );
                 });
           },
         ),

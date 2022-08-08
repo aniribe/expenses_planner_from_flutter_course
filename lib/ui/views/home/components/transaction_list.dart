@@ -17,37 +17,29 @@ class TransactionList extends StatelessWidget {
       child: ListView.builder(
         itemBuilder: (context, index) {
           return Card(
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 10,
-                  ),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.purple, width: 2)),
-                  child: Text(
-                    '\$ ${transactions[index].amount.toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.purple,
-                    ),
-                  ),
+            elevation: 5,
+            child: ListTile(
+              leading: CircleAvatar(
+                radius: 30,
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: FittedBox(
+                      child: Text(
+                          '\$ ${transactions[index].amount.toStringAsFixed(2)}')),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      transactions[index].title,
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    Text(DateFormat.yMMMd().format(transactions[index].date)),
-                  ],
-                ),
-              ],
+              ),
+              title: Text(
+                transactions[index].title,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              subtitle:
+                  Text(DateFormat.yMMMd().format(transactions[index].date)),
+              trailing: IconButton(
+                icon: Icon(Icons.delete),
+                color: Theme.of(context).errorColor,
+                onPressed: () {},
+              ),
             ),
           );
         },

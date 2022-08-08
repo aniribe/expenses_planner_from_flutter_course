@@ -8,6 +8,7 @@ class HomeViewModel extends BaseViewModel {
 
   String? titleInput;
   String? amountInput;
+  DateTime? selectedDate;
 
   final List<Transaction> transactions = [
     Transaction(
@@ -45,9 +46,15 @@ class HomeViewModel extends BaseViewModel {
         title: title,
         amount: double.parse(amount),
         id: DateTime.now().toString(),
-        date: DateTime.now());
+        date: selectedDate as DateTime);
 
     transactions.add(newTransaction);
+    notifyListeners();
+  }
+
+  void onDateChosen(DateTime date) {
+    selectedDate = date;
+
     notifyListeners();
   }
 
