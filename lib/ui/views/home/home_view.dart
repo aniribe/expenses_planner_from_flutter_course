@@ -13,31 +13,24 @@ class HomeView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.reactive(
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, model, child) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Flutter App'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (_) {
-                      return NewTransaction(
-                        onAddPressed: model.addTransactionHandler,
-                        onDateChosen: model.onDateChosen,
-                        selectedDate: model.selectedDate,
-                      );
-                    });
-              },
-            )
-          ],
-        ),
+        appBar: appBar(context, model),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Chart(recentTransactions: model.recentTransaction),
-              TransactionList(transactions: model.transactions),
+              Container(
+                height: (MediaQuery.of(context).size.height -
+                        appBar(context, model).preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.4,
+                child: Chart(recentTransactions: model.recentTransaction),
+              ),
+              Container(
+                  height: (MediaQuery.of(context).size.height -
+                          appBar(context, model).preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.6,
+                  child: TransactionList(transactions: model.transactions)),
             ],
           ),
         ),
@@ -58,4 +51,26 @@ class HomeView extends StatelessWidget {
       ),
     );
   }
+}
+
+AppBar appBar(BuildContext context, HomeViewModel model) {
+  return AppBar(
+    title: const Text('Flutter App'),
+    actions: [
+      IconButton(
+        icon: const Icon(Icons.add),
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (_) {
+                return NewTransaction(
+                  onAddPressed: model.addTransactionHandler,
+                  onDateChosen: model.onDateChosen,
+                  selectedDate: model.selectedDate,
+                );
+              });
+        },
+      )
+    ],
+  );
 }
