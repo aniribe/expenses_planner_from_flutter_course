@@ -22,14 +22,14 @@ class HomeView extends StatelessWidget {
                 height: (MediaQuery.of(context).size.height -
                         appBar(context, model).preferredSize.height -
                         MediaQuery.of(context).padding.top) *
-                    0.4,
+                    0.3,
                 child: Chart(recentTransactions: model.recentTransaction),
               ),
               Container(
                   height: (MediaQuery.of(context).size.height -
                           appBar(context, model).preferredSize.height -
                           MediaQuery.of(context).padding.top) *
-                      0.6,
+                      0.7,
                   child: TransactionList(transactions: model.transactions)),
             ],
           ),
