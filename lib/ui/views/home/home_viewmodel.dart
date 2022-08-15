@@ -10,6 +10,8 @@ class HomeViewModel extends BaseViewModel {
   String? amountInput;
   DateTime? selectedDate;
 
+  bool showChart = false;
+
   final List<Transaction> transactions = [
     Transaction(
       id: 't1',
@@ -55,6 +57,11 @@ class HomeViewModel extends BaseViewModel {
   void onDateChosen(DateTime date) {
     selectedDate = date;
 
+    notifyListeners();
+  }
+
+  void onSwitchChanged(bool value) {
+    showChart = value;
     notifyListeners();
   }
 

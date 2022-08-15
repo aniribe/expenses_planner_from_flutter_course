@@ -18,19 +18,29 @@ class HomeView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                height: (MediaQuery.of(context).size.height -
-                        appBar(context, model).preferredSize.height -
-                        MediaQuery.of(context).padding.top) *
-                    0.3,
-                child: Chart(recentTransactions: model.recentTransaction),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Show chart'),
+                  Switch(
+                      value: model.showChart,
+                      onChanged: (value) => model.onSwitchChanged(value)),
+                ],
               ),
-              Container(
-                  height: (MediaQuery.of(context).size.height -
-                          appBar(context, model).preferredSize.height -
-                          MediaQuery.of(context).padding.top) *
-                      0.7,
-                  child: TransactionList(transactions: model.transactions)),
+              model.showChart
+                  ? Container(
+                      height: (MediaQuery.of(context).size.height -
+                              appBar(context, model).preferredSize.height -
+                              MediaQuery.of(context).padding.top) *
+                          0.7,
+                      child: Chart(recentTransactions: model.recentTransaction),
+                    )
+                  : Container(
+                      height: (MediaQuery.of(context).size.height -
+                              appBar(context, model).preferredSize.height -
+                              MediaQuery.of(context).padding.top) *
+                          0.7,
+                      child: TransactionList(transactions: model.transactions)),
             ],
           ),
         ),
