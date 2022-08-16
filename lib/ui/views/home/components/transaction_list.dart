@@ -31,11 +31,18 @@ class TransactionList extends StatelessWidget {
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             subtitle: Text(DateFormat.yMMMd().format(transactions[index].date)),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete),
-              color: Theme.of(context).errorColor,
-              onPressed: () {},
-            ),
+            trailing: MediaQuery.of(context).size.width > 360
+                ? FlatButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Icons.delete),
+                    label: const Text('Delete'),
+                    textColor: Theme.of(context).errorColor,
+                  )
+                : IconButton(
+                    icon: const Icon(Icons.delete),
+                    color: Theme.of(context).errorColor,
+                    onPressed: () {},
+                  ),
           ),
         );
       },

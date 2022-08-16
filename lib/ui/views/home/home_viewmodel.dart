@@ -25,6 +25,24 @@ class HomeViewModel extends BaseViewModel {
       amount: 25.50,
       date: DateTime.now(),
     ),
+    Transaction(
+      id: 't3',
+      title: 'Bread',
+      amount: 0.90,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Rice',
+      amount: 1.50,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't5',
+      title: 'Coffee',
+      amount: 3.40,
+      date: DateTime.now(),
+    ),
   ];
 
   List<Transaction> get recentTransaction {
