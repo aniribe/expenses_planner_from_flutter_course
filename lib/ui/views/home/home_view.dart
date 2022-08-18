@@ -104,7 +104,10 @@ Widget getBody(BuildContext context, HomeViewModel model) {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Show chart'),
+                Text(
+                  'Show chart',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
                 Switch.adaptive(
                     activeColor: Theme.of(context).accentColor,
                     value: model.showChart,

@@ -1,5 +1,9 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../../../widgets/adaptive_button.dart';
 
 class NewTransaction extends StatelessWidget {
   final titleController = TextEditingController();
@@ -44,29 +48,17 @@ class NewTransaction extends StatelessWidget {
                 // onChanged: onAmountChanged,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     selectedDate == null
                         ? 'No Date Chosen!'
                         : DateFormat.yMd().format(selectedDate!),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(2019),
-                              lastDate: DateTime.now())
-                          .then((pickedDate) {
-                        print('SEKECTED: $selectedDate');
-                        if (pickedDate == null) {
-                          return;
-                        }
-                        onDateChosen(pickedDate);
-                      });
-                    },
-                    child: const Text('Choose Date'),
-                  )
+                  AdaptiveFlatButton(
+                    text: 'Choose Date',
+                    handler: () => getShowDatePicker(context, onDateChosen),
+                  ),
                 ],
               ),
               TextButton(
