@@ -5,6 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import '../../util/ui_helpers.dart';
+import '../../widgets/app_bar_ios.dart';
+import '../../widgets/my_app_bar.dart';
+import 'components/lanscape_content.dart';
+import 'components/portrait_content.dart';
 import 'components/transaction_list.dart';
 import 'home_viewmodel.dart';
 
@@ -44,28 +48,6 @@ class HomeView extends StatelessWidget {
   }
 }
 
-PreferredSizeWidget appBar(BuildContext context, HomeViewModel model) {
-  return AppBar(
-    title: const Text('Personal Expenses'),
-    actions: [
-      IconButton(
-        icon: const Icon(Icons.add),
-        onPressed: () {
-          showModalBottomSheet(
-              context: context,
-              builder: (_) {
-                return NewTransaction(
-                  onAddPressed: model.addTransactionHandler,
-                  onDateChosen: model.onDateChosen,
-                  selectedDate: model.selectedDate,
-                );
-              });
-        },
-      )
-    ],
-  );
-}
-
 void onNewTransactionButtonPressed(BuildContext context, HomeViewModel model) {
   showModalBottomSheet(
       context: context,
@@ -78,72 +60,14 @@ void onNewTransactionButtonPressed(BuildContext context, HomeViewModel model) {
       });
 }
 
-ObstructingPreferredSizeWidget appBarIos(
-    BuildContext context, HomeViewModel model) {
-  return CupertinoNavigationBar(
-    middle: const Text('Personal Expenses'),
-    trailing: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        GestureDetector(
-          child: const Icon(CupertinoIcons.add),
-          onTap: () => onNewTransactionButtonPressed(context, model),
-        )
-      ],
-    ),
-  );
-}
-
 Widget getBody(BuildContext context, HomeViewModel model) {
   return SafeArea(
     child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (isLandscape(context))
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Show chart',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                Switch.adaptive(
-                    activeColor: Theme.of(context).accentColor,
-                    value: model.showChart,
-                    onChanged: (value) => model.onSwitchChanged(value)),
-              ],
-            ),
-          if (!isLandscape(context))
-            Container(
-              height: (MediaQuery.of(context).size.height -
-                      appBar(context, model).preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  0.3,
-              child: Chart(recentTransactions: model.recentTransaction),
-            ),
-          if (!isLandscape(context))
-            Container(
-                height: (MediaQuery.of(context).size.height -
-                        appBar(context, model).preferredSize.height -
-                        MediaQuery.of(context).padding.top) *
-                    0.7,
-                child: TransactionList(transactions: model.transactions)),
-          if (isLandscape(context))
-            model.showChart
-                ? Container(
-                    height: (MediaQuery.of(context).size.height -
-                            appBar(context, model).preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
-                        0.7,
-                    child: Chart(recentTransactions: model.recentTransaction),
-                  )
-                : Container(
-                    height: (MediaQuery.of(context).size.height -
-                            appBar(context, model).preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
-                        0.7,
-                    child: TransactionList(transactions: model.transactions)),
+          if (isLandscape(context)) ...buildLanscapeContent(context, model),
+          if (!isLandscape(context)) ...buildPortraitContent(context, model),
         ],
       ),
     ),
